@@ -1,0 +1,1 @@
+C:\Users\Cody Hoggard\Documents\GitHub\Trivia API Test\obj\Debug\Assembly-CSharp-firstpass.csprojResolveAssemblyReference.cache

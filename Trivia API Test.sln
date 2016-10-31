@@ -1,0 +1,29 @@
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2008
+
+Project("{51829810-EE7F-E5FA-3CEF-BDD57636EAD6}") = "Trivia API Test", "Assembly-CSharp-firstpass.csproj", "{051A9F70-5CD0-1A80-CC48-3E7CF23D6EC8}"
+EndProject
+Project("{51829810-EE7F-E5FA-3CEF-BDD57636EAD6}") = "Trivia API Test", "Assembly-CSharp.csproj", "{3F53837A-1D6B-0513-9AE9-1989EFE43F0C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{051A9F70-5CD0-1A80-CC48-3E7CF23D6EC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{051A9F70-5CD0-1A80-CC48-3E7CF23D6EC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{051A9F70-5CD0-1A80-CC48-3E7CF23D6EC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{051A9F70-5CD0-1A80-CC48-3E7CF23D6EC8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F53837A-1D6B-0513-9AE9-1989EFE43F0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F53837A-1D6B-0513-9AE9-1989EFE43F0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F53837A-1D6B-0513-9AE9-1989EFE43F0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F53837A-1D6B-0513-9AE9-1989EFE43F0C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = Assembly-CSharp.csproj
+	EndGlobalSection
+EndGlobal
