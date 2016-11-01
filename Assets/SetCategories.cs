@@ -38,13 +38,6 @@ public class SetCategories : MonoBehaviour {
 		drop.AddOptions(options);
 
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
-
-
 
 
 	/// <summary>
@@ -54,7 +47,7 @@ public class SetCategories : MonoBehaviour {
 	public string GetCategory
 	{
 		//category.captionText.text;
-		get {return drop.GetComponent<Dropdown>().captionText.text;}
+		get {return drop.GetComponent<Dropdown>().captionText.text.ToString();}
 	}
 
 	public JSONNode GetJson

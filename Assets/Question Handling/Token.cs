@@ -8,22 +8,24 @@ public class Token
 	int response_code;
 	string response_message;
 	string token;
-
+	WWW url;
 
 
 	public Token()
 	{	
-		WWW url = new WWW("https://opentdb.com/api_token.php?command=request");
+		url = new WWW("https://opentdb.com/api_token.php?command=request");
 
 
 		while (!url.isDone)//Wait till the URL is finished downloading
 		{}
 
 		Debug.Log("TOKEN DOWNLOADED");
+
 		var n = JSON.Parse(url.text);
 
+
 		response_code 		= n["response_code"].AsInt;
-		response_message 	= n["reponse_message"];
+		response_message 	= n["reponse_message"].ToString();
 		token 				= n["token"];
 	}
 
