@@ -110,7 +110,7 @@ public class QuestionHandler : MonoBehaviour
 		//Make it so you can't hit the buttons until the next question shows up
 
 
-		ColorBlock blockSelected 	= selectedButton.colors;
+		ColorBlock blockSelected 	= selectedButton.GetComponent<Button>().colors;
 		ColorBlock blockA1 			= a1.GetComponent<Button>().colors;
 		ColorBlock blockA2 			= a2.GetComponent<Button>().colors;
 		ColorBlock blockA3 			= a3.GetComponent<Button>().colors;
@@ -158,6 +158,12 @@ public class QuestionHandler : MonoBehaviour
 		//blockA2.disabledColor = defaultHighlightedColor;
 		//blockA3.disabledColor = defaultHighlightedColor;
 		//blockA4.disabledColor = defaultHighlightedColor;
+
+		if (currentQuestion < maxQuestions + 1)
+		{
+			currentQuestion++;
+			SetQuestion(currentQuestion);
+		}
 	}
 
 	void SetQuestion(int questionNum)
