@@ -1,0 +1,29 @@
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2008
+
+Project("{AC1F631C-E7F3-4D60-2B79-4D000F104080}") = "Trivia-API-Test", "Assembly-CSharp-firstpass.csproj", "{3D1763D7-E6B6-264A-1E2A-F5D4780D5408}"
+EndProject
+Project("{AC1F631C-E7F3-4D60-2B79-4D000F104080}") = "Trivia-API-Test", "Assembly-CSharp.csproj", "{5F053564-5296-B2D5-B3CA-B4F4247DEBA5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3D1763D7-E6B6-264A-1E2A-F5D4780D5408}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D1763D7-E6B6-264A-1E2A-F5D4780D5408}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D1763D7-E6B6-264A-1E2A-F5D4780D5408}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D1763D7-E6B6-264A-1E2A-F5D4780D5408}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F053564-5296-B2D5-B3CA-B4F4247DEBA5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F053564-5296-B2D5-B3CA-B4F4247DEBA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F053564-5296-B2D5-B3CA-B4F4247DEBA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F053564-5296-B2D5-B3CA-B4F4247DEBA5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = Assembly-CSharp.csproj
+	EndGlobalSection
+EndGlobal
