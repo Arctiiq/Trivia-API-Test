@@ -24,6 +24,8 @@ public class QuestionHandler : MonoBehaviour
 	public Canvas Canvas_Options_Difficulty_Extra;
 	public Text Text_Data;
 
+	public Text txt_NumRight;
+
 
 
 	public int numRight = 0;
@@ -55,7 +57,7 @@ public class QuestionHandler : MonoBehaviour
 
 
 
-		defaultHighlightedColor = a1.GetComponent<Button>().colors.disabledColor;
+		defaultHighlightedColor = a1.GetComponent<Image>().color;
 
 	}
 
@@ -129,17 +131,10 @@ public class QuestionHandler : MonoBehaviour
 	IEnumerator ShowCorrectQuestion(bool correct, Button selectedButton)
 	{
 
-		ColorBlock blockSelected 	= selectedButton.GetComponent<Button>().colors;
-		ColorBlock blockA1 			= a1.GetComponent<Button>().colors;
-		ColorBlock blockA2 			= a2.GetComponent<Button>().colors;
-		ColorBlock blockA3 			= a3.GetComponent<Button>().colors;
-		ColorBlock blockA4 			= a4.GetComponent<Button>().colors;
-
-
 		if (correct)
 		{
 
-			blockSelected.disabledColor = Color.green;
+			selectedButton.GetComponent<Image>().color = Color.green;
 			numRight++;
 			Debug.Log("Answer is correct!");
 		}
@@ -147,17 +142,15 @@ public class QuestionHandler : MonoBehaviour
 		{
 			Debug.Log("Answer is not correct!");
 			if (CheckQuestion(a1.GetComponentInChildren<Text>().text.ToString().Replace("\"","")))
-				blockA1.disabledColor = Color.green;
+				a1.GetComponent<Image>().color = Color.green;
 			else if (CheckQuestion(a2.GetComponentInChildren<Text>().text.ToString().Replace("\"","")))
-				blockA2.disabledColor = Color.green;
+				a2.GetComponent<Image>().color = Color.green;
 			else if (CheckQuestion(a3.GetComponentInChildren<Text>().text.ToString().Replace("\"","")))
-				blockA3.disabledColor = Color.green;
+				a3.GetComponent<Image>().color = Color.green;
 			else if (CheckQuestion(a4.GetComponentInChildren<Text>().text.ToString().Replace("\"","")))
-				blockA4.disabledColor = Color.green;
+				a4.GetComponent<Image>().color = Color.green;
 
-			blockSelected.disabledColor = Color.red;
-
-
+			selectedButton.GetComponent<Image>().color = Color.red;
 		}
 
 		a1.interactable = false;
@@ -173,10 +166,10 @@ public class QuestionHandler : MonoBehaviour
 
 		yield return new WaitForSeconds(5);
 
-		//blockA1.disabledColor = defaultHighlightedColor;
-		//blockA2.disabledColor = defaultHighlightedColor;
-		//blockA3.disabledColor = defaultHighlightedColor;
-		//blockA4.disabledColor = defaultHighlightedColor;
+		a1.GetComponent<Image>().color = defaultHighlightedColor;
+		a2.GetComponent<Image>().color = defaultHighlightedColor;
+		a3.GetComponent<Image>().color = defaultHighlightedColor;
+		a4.GetComponent<Image>().color = defaultHighlightedColor;
 
 		if (currentQuestion < maxQuestions - 1)
 		{
@@ -269,6 +262,7 @@ public class QuestionHandler : MonoBehaviour
 			txt_numQuestion.GetComponent<Text>().text = "Question: " + (currentQuestion + 1) + "/" + maxQuestions.ToString();
 			txt_category.GetComponent<Text>().text = "Category: " + questionList[currentQuestion].Category.ToString().Replace("\"","").ToUpper();
 			txt_difficulty.GetComponent<Text>().text = "Difficulty: " + questionList[currentQuestion].Difficulty.Replace("\"","").ToUpper();
+			txt_NumRight.text = numRight.ToString() + "/" + maxQuestions.ToString() + " correct";
 		}
 	}
 
@@ -285,7 +279,7 @@ public class QuestionHandler : MonoBehaviour
 				if (cat.GetCategory == cat.GetJson["trivia_categories"][i]["name"].ToString().Replace("\"",""))
 				{
 					
-					int id = cat.GetJson["trivia_categories"][i]["id"].AsInt;
+					int id = cat.GetJson["trivia_categories"][i]["id"].AsInt;//Returns the ID of the trivia category from the Json
 					//Debug.Log("Category id= " + id);
 					if (diff.Easy)
 					{
