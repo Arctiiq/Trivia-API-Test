@@ -22,6 +22,7 @@ public class QuestionHandler : MonoBehaviour
 	public Canvas Canvas_Options;
 	public Canvas Canvas_Options_Difficulty;
 	public Canvas Canvas_Options_Difficulty_Extra;
+	public Text Text_Data;
 
 
 
@@ -139,7 +140,7 @@ public class QuestionHandler : MonoBehaviour
 		{
 
 			blockSelected.disabledColor = Color.green;
-
+			numRight++;
 			Debug.Log("Answer is correct!");
 		}
 		else
@@ -184,7 +185,7 @@ public class QuestionHandler : MonoBehaviour
 		}
 		else if (currentQuestion == maxQuestions - 1)
 		{
-			
+			EndGame();
 			Debug.Log("Last question!");
 		}
 
@@ -197,14 +198,27 @@ public class QuestionHandler : MonoBehaviour
 	public IEnumerator WaitForDownload(WWW url)
 	{
 		if (!url.isDone)
-		StartCoroutine(WaitForDownload(url));
+			StartCoroutine(WaitForDownload(url));
 		else
 		yield break;
 	}
 
 	void EndGame()
 	{
+		Canvas_Question.enabled = false;
+		Canvas_End.enabled = true;
+		Text_Data.text = "Number of questions correct: " + numRight + "/" + maxQuestions;
+	}
 
+	public void ReturnToMain()
+	{
+		Canvas_End.enabled = false;
+		Canvas_Options.enabled = true;
+		Canvas_Options_Difficulty.enabled = true;
+		Canvas_Options_Difficulty_Extra.enabled = true;
+		numRight = 0;
+		maxQuestions = 0;
+		currentQuestion = 0;
 	}
 
 	void SetQuestion(int questionNum)
@@ -253,8 +267,8 @@ public class QuestionHandler : MonoBehaviour
 		if (TriviaInProgress)
 		{
 			txt_numQuestion.GetComponent<Text>().text = "Question: " + (currentQuestion + 1) + "/" + maxQuestions.ToString();
-			txt_category.GetComponent<Text>().text = "Category: " + questionList[currentQuestion].Category.ToString();
-			txt_difficulty.GetComponent<Text>().text = "Difficulty: " + questionList[currentQuestion].Difficulty;
+			txt_category.GetComponent<Text>().text = "Category: " + questionList[currentQuestion].Category.ToString().Replace("\"","").ToUpper();
+			txt_difficulty.GetComponent<Text>().text = "Difficulty: " + questionList[currentQuestion].Difficulty.Replace("\"","").ToUpper();
 		}
 	}
 
