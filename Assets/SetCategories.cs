@@ -18,10 +18,7 @@ public class SetCategories : MonoBehaviour {
 
 		WWW url = new WWW("https://opentdb.com/api_category.php");
 
-		while (!url.isDone)
-		{
-			//Wait till URL is finished downloading
-		}
+		StartCoroutine(WaitForDownload(url));
 
 		node = JSON.Parse(url.text);
 		//node = n;
@@ -37,6 +34,14 @@ public class SetCategories : MonoBehaviour {
 		drop.ClearOptions();
 		drop.AddOptions(options);
 
+	}
+
+	public IEnumerator WaitForDownload(WWW url)
+	{
+		if (!url.isDone)
+		StartCoroutine(WaitForDownload(url));
+		else
+		yield break;
 	}
 
 

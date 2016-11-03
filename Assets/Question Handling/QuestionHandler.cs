@@ -17,6 +17,16 @@ public class QuestionHandler : MonoBehaviour
 	public Button a3;
 	public Button a4;
 
+	public Canvas Canvas_End;
+	public Canvas Canvas_Question;
+	public Canvas Canvas_Options;
+	public Canvas Canvas_Options_Difficulty;
+	public Canvas Canvas_Options_Difficulty_Extra;
+
+
+
+	public int numRight = 0;
+
 	Color defaultHighlightedColor;
 
 
@@ -41,7 +51,8 @@ public class QuestionHandler : MonoBehaviour
 
 		currentQuestion = 0;
 		questionList = new List<Question>();
-		maxQuestions = questionList.Count + 1;
+
+
 
 		defaultHighlightedColor = a1.GetComponent<Button>().colors.disabledColor;
 
@@ -51,10 +62,19 @@ public class QuestionHandler : MonoBehaviour
 	{
 		
 		currentQuestion = 0;
+
 		token = new Token();//Initalizes a new token for generating new questions
+		StartCoroutine(token.WaitForDownload());//Waits for the token to finish downloading
+		token.ParseToken();//Parses the token information
+
 		GenerateFromToken();
+
+		maxQuestions = questionList.Count;
+
 		SetQuestion(0);
 		TriviaInProgress = true;
+
+		Debug.Log(questionList.Count + " questions");
 
 	}
 
@@ -107,8 +127,6 @@ public class QuestionHandler : MonoBehaviour
 
 	IEnumerator ShowCorrectQuestion(bool correct, Button selectedButton)
 	{
-		//Make it so you can't hit the buttons until the next question shows up
-
 
 		ColorBlock blockSelected 	= selectedButton.GetComponent<Button>().colors;
 		ColorBlock blockA1 			= a1.GetComponent<Button>().colors;
@@ -148,7 +166,7 @@ public class QuestionHandler : MonoBehaviour
 
 		/*
 		 	TODO:
-		 	-Feedback if answer was correct(?)
+		 	-Feedback if answer was correct
 		 	-Feedback for scoring
 		*/
 
@@ -159,11 +177,34 @@ public class QuestionHandler : MonoBehaviour
 		//blockA3.disabledColor = defaultHighlightedColor;
 		//blockA4.disabledColor = defaultHighlightedColor;
 
-		if (currentQuestion < maxQuestions + 1)
+		if (currentQuestion < maxQuestions - 1)
 		{
 			currentQuestion++;
 			SetQuestion(currentQuestion);
 		}
+		else if (currentQuestion == maxQuestions - 1)
+		{
+			
+			Debug.Log("Last question!");
+		}
+
+		a1.interactable = true;
+		a2.interactable = true;
+		a3.interactable = true;
+		a4.interactable = true;
+	}
+
+	public IEnumerator WaitForDownload(WWW url)
+	{
+		if (!url.isDone)
+		StartCoroutine(WaitForDownload(url));
+		else
+		yield break;
+	}
+
+	void EndGame()
+	{
+
 	}
 
 	void SetQuestion(int questionNum)
@@ -188,18 +229,20 @@ public class QuestionHandler : MonoBehaviour
 				text[randomIndex] = temp;
 	     	}
      	}
-		
 
-		txt_Question.GetComponent<Text>().text = questionList[questionNum].GetQuestion.Replace("&#039;","\'");
 
+
+		txt_Question.GetComponent<Text>().text = questionList[questionNum].GetQuestion.Replace("&quot;","\"").Replace("&#039;","\'");
 
 		a1.GetComponentInChildren<Text>().text = text[0];
 		a2.GetComponentInChildren<Text>().text = text[1];
 		a3.GetComponentInChildren<Text>().text = text[2];
 		a4.GetComponentInChildren<Text>().text = text[3];
 
-
-
+		a1.GetComponentInChildren<Text>().text = a1.GetComponentInChildren<Text>().text.Replace("&quot;","\"").Replace("&#039;","\'");
+		a2.GetComponentInChildren<Text>().text = a2.GetComponentInChildren<Text>().text.Replace("&quot;","\"").Replace("&#039;","\'");
+		a3.GetComponentInChildren<Text>().text = a3.GetComponentInChildren<Text>().text.Replace("&quot;","\"").Replace("&#039;","\'");
+		a4.GetComponentInChildren<Text>().text = a4.GetComponentInChildren<Text>().text.Replace("&quot;","\"").Replace("&#039;","\'");
 
 	}
 	
@@ -272,23 +315,23 @@ public class QuestionHandler : MonoBehaviour
 				}
 			}
 
+			StartCoroutine(WaitForDownload(url));
+
 			if (url != null)
 			{	
 				JSONNode node;
-				while (!url.isDone)
-				{}
+
 				node = JSON.Parse(url.text);
+
 				for (int i = 0; i < node["results"].AsArray.Count; i++)
 				{
 					string[] s = {"","",""};
-
-
 
 					s[0] = node["results"][i]["incorrect_answers"][0];
 					s[1] = node["results"][i]["incorrect_answers"][1];
 					s[2] = node["results"][i]["incorrect_answers"][2];
 					
-					Question q = new Question(	node["results"][i]["question"].ToString().Replace("&quot;","\""),
+					Question q = new Question(	node["results"][i]["question"].ToString().Replace("\"",""),
 												node["results"][i]["correct_answer"].ToString(),
 												s, 
 												node["results"][i]["category"].ToString(),
@@ -305,4 +348,6 @@ public class QuestionHandler : MonoBehaviour
 			}
 		}
 	}
+
+
 } 
