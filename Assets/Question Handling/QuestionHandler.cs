@@ -201,6 +201,8 @@ public class QuestionHandler : MonoBehaviour
 		Canvas_Question.enabled = false;
 		Canvas_End.enabled = true;
 		Text_Data.text = "Number of questions correct: " + numRight + "/" + maxQuestions;
+		TriviaInProgress = false;
+
 	}
 
 	public void ReturnToMain()
@@ -212,6 +214,7 @@ public class QuestionHandler : MonoBehaviour
 		numRight = 0;
 		maxQuestions = 0;
 		currentQuestion = 0;
+		questionList.Clear();
 	}
 
 	void SetQuestion(int questionNum)
