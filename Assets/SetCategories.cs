@@ -10,18 +10,26 @@ public class SetCategories : MonoBehaviour {
 	JSONNode node;
 	List<string> options;
 
+
 	// Use this for initialization
 	void Start () 
 	{	
 		
 		options = new List<string>();
 
-		WWW url = new WWW("https://opentdb.com/api_category.php");
 
-		StartCoroutine(WaitForDownload(url));
+		StartCoroutine(WaitForDownload());
+
+
+	}
+
+	public IEnumerator WaitForDownload()
+	{
+		WWW url = new WWW("https://opentdb.com/api_category.php");
+		yield return url;
+
 
 		node = JSON.Parse(url.text);
-		//node = n;
 
 		for(int i = 0; i < node["trivia_categories"].AsArray.Count; i++)//Iterates through each of the categories and adds it to the list
 		{
@@ -33,15 +41,6 @@ public class SetCategories : MonoBehaviour {
 
 		drop.ClearOptions();
 		drop.AddOptions(options);
-
-	}
-
-	public IEnumerator WaitForDownload(WWW url)
-	{
-		if (!url.isDone)
-		StartCoroutine(WaitForDownload(url));
-		else
-		yield break;
 	}
 
 
