@@ -10,9 +10,7 @@ public class Token
 	string response_message;
 	string token;
 
-
 	WWW url;
-	JSONNode n;
 
 
 	public Token()
@@ -48,10 +46,9 @@ public class Token
 
 	public void ParseToken()
 	{
-		
 		if (url.isDone)
 		{
-			
+			var n = JSON.Parse(url.text);
 			response_code 		= n["response_code"].AsInt;
 			response_message 	= n["reponse_message"].ToString();
 			token 				= n["token"];
@@ -60,7 +57,9 @@ public class Token
 
 	public IEnumerator WaitForDownload()
 	{
-		yield return url;
-		n = JSON.Parse(url.text);
+		while (!url.isDone)
+		{
+			yield return null;
+		}
 	}
 }
