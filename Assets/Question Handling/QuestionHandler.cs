@@ -188,12 +188,9 @@ public class QuestionHandler : MonoBehaviour
 		a4.interactable = true;
 	}
 
-	public IEnumerator WaitForDownload(WWW url)
+	public IEnumerator WaitForDownload()
 	{
-		if (!url.isDone)
-			StartCoroutine(WaitForDownload(url));
-		else
-		yield break;
+		yield return url;
 	}
 
 	void EndGame()
@@ -326,7 +323,8 @@ public class QuestionHandler : MonoBehaviour
 				}
 			}
 
-			StartCoroutine(WaitForDownload(url));
+			while (!url.isDone)//You see nothing.
+			{}
 
 			if (url != null)
 			{	
@@ -360,5 +358,8 @@ public class QuestionHandler : MonoBehaviour
 		}
 	}
 
-
+	public void QuitToDesktop()
+	{
+		Application.Quit();
+	}
 } 
