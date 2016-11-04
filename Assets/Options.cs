@@ -170,7 +170,6 @@ public class Options : MonoBehaviour
 
 	public void DefaultNativeRes()
 	{
-		PlayerPrefs.DeleteAll();//Only used for testing
 		if (!PlayerPrefs.HasKey("defaultResW") && !PlayerPrefs.HasKey("defaultResH"))
 		{
 			Screen.fullScreen = false;
@@ -323,8 +322,6 @@ public class Options : MonoBehaviour
 		resW = PlayerPrefs.GetInt("resW");
 		resH = PlayerPrefs.GetInt("resH");
 	
-
-		//isFullScreen = System.Convert.ToBoolean(PlayerPrefs.GetInt("isFullScreen")) ? true : false;
 		Screen.SetResolution(resW,resH, FullScreen.isOn);
 	}
 
